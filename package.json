@@ -1,6 +1,6 @@
 {
   "name": "koishi-plugin-meiriyiju",
-  "description": "每日一言，一句话的力量。",
+  "description": "每日一言，一句话的力量。梦想之都出品",
   "version": "1.0.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -8,12 +8,12 @@
     "lib",
     "dist"
   ],
-  "author": "YourName <you@example.com>",
+  "author": "itwxb <xiaobocarry@163.com>",
   "license": "MIT",
-  "homepage": "https://github.com/yourname/koishi-plugin-daily-quote",
+  "homepage": "https://github.com/itwxb/koishi-plugin-meiriyiju",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yourname/koishi-plugin-daily-quote.git"
+    "url": "git+https://github.com/itwxb/koishi-plugin-meiriyiju.git"
   },
   "scripts": {
     "build": "tsc",
