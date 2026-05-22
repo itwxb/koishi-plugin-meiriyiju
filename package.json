@@ -1,0 +1,46 @@
+{
+  "name": "koishi-plugin-meiriyiju",
+  "description": "每日一言，一句话的力量。",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "dist"
+  ],
+  "author": "YourName <you@example.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/yourname/koishi-plugin-daily-quote",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourname/koishi-plugin-daily-quote.git"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier -w src"
+  },
+  "koishi": {
+    "category": "game"
+  },
+  "keywords": [
+    "每日一句",
+    "一言",
+    "鸡汤",
+    "plugin"
+  ],
+  "devDependencies": {
+    "@kigoo/eslint-config": "^0.0.3",
+    "@kigoo/prettier-config": "^0.0.1",
+    "@types/eslint": "^9",
+    "@types/node": "^22.5.1",
+    "eslint": "^8",
+    "koishi": "^4.18.0",
+    "prettier": "^3.3.3",
+    "typescript": "^5.5.4"
+  },
+  "peerDependencies": {
+    "koishi": "^4.18.0"
+  }
+}
