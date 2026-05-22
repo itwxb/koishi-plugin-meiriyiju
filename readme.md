@@ -1,4 +1,4 @@
-# 每日一句
+# 每日一句-插件
 
 npm 包名：`koishi-plugin-meiriyiju`
 
