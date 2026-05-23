@@ -118,7 +118,7 @@ export function apply(ctx: Context, config: ConfigOptions): void {
     }
 
     // 检查是否匹配关键词
-    if (!matchKeyword(session.content || '', keywords)) {
+    if (!matchKeyword(session.content || "", keywords)) {
       return next();
     }
 
