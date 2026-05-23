@@ -44,9 +44,6 @@ package.json 中的 version 字段
 npm publish
 ```
 
-
-```
-
 ## 开发
 
 ### 环境要求
