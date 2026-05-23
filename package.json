@@ -1,7 +1,8 @@
 {
+  "type": "module",
   "name": "koishi-plugin-meiriyiju",
   "description": "每日一句，一句话的力量。梦想之都出品",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "exports": {
@@ -48,5 +49,8 @@
   },
   "peerDependencies": {
     "koishi": "^4.18.0"
+  },
+  "dependencies": {
+    "koishi-plugin-soup": "^1.0.2"
   }
 }
