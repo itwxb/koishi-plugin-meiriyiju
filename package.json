@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-meiriyiju",
   "description": "每日一句，一句话的力量。梦想之都出品",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
