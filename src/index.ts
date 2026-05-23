@@ -15,8 +15,6 @@ export const name = "meiriyiju";
 interface ConfigOptions {
   /** 是否在回复时引用用户消息 */
   replyQuote: boolean;
-  /** 自定义 API 地址，默认为一言 API */
-  apiUrl: string;
   /** 请求超时时间（毫秒） */
   timeout: number;
   /** 匹配关键词，多个用逗号分隔 */
@@ -31,9 +29,6 @@ export const Config: Schema<ConfigOptions> = Schema.object({
   replyQuote: Schema.boolean()
     .default(true)
     .description("是否在回复时引用用户消息"),
-  apiUrl: Schema.string()
-    .default("https://v1.hitokoto.cn")
-    .description("一言 API 地址"),
   timeout: Schema.number()
     .default(5000)
     .min(1000)
@@ -44,43 +39,39 @@ export const Config: Schema<ConfigOptions> = Schema.object({
     .description("触发关键词（多个用逗号分隔）"),
 });
 
-/**
- * Hitokoto API 响应结构
- * @description 一言 API 返回的数据结构
- */
-interface HitokotoResponse {
-  /** 随机返回的语句 */
-  hitokoto: string;
-  /** 语句来源 */
-  from: string;
-  /** 来源作品 */
-  from_who: string | null;
-}
+/** API 地址 */
+const API_URL = "https://api.xygeng.cn/one";
 
 /**
  * 发送 HTTP GET 请求的封装
  * @param ctx - Koishi 上下文
- * @param url - 请求 URL
  * @param timeout - 超时时间（毫秒）
- * @returns Promise<string> 返回语句内容
+ * @returns Promise<HitokotoData> 返回语句内容和出处
  */
+interface HitokotoData {
+  content: string;
+  origin?: string;
+}
+
 async function fetchHitokoto(
   ctx: Context,
-  url: string,
   timeout: number,
-): Promise<string> {
-  const response = await ctx.http.get<HitokotoResponse>(url, {
+): Promise<HitokotoData> {
+  const response = await ctx.http.get<{
+    code: number;
+    data: HitokotoData;
+  }>(API_URL, {
     timeout,
-    headers: {
-      Accept: "application/json",
-    },
   });
 
-  if (!response?.hitokoto) {
-    throw new Error("Invalid API response: missing hitokoto field");
+  if (response.code !== 200 || !response.data?.content) {
+    throw new Error("Invalid API response");
   }
 
-  return response.hitokoto;
+  return {
+    content: response.data.content,
+    origin: response.data.origin,
+  };
 }
 
 /**
@@ -104,7 +95,7 @@ function matchKeyword(content: string, keywords: string): boolean {
  * @description 注册中间件，处理每日一句请求
  */
 export function apply(ctx: Context, config: ConfigOptions): void {
-  const { replyQuote, apiUrl, timeout, keywords } = config;
+  const { replyQuote, timeout, keywords } = config;
 
   ctx.middleware(async (session, next) => {
     // 仅在群聊环境中生效
@@ -123,12 +114,13 @@ export function apply(ctx: Context, config: ConfigOptions): void {
     }
 
     try {
-      const hitokoto = await fetchHitokoto(ctx, apiUrl, timeout);
+      const { content, origin } = await fetchHitokoto(ctx, timeout);
       const quoteElement = replyQuote
         ? h("quote", { id: session.messageId })
         : "";
+      const originText = origin ? `\n—— ${origin}` : "";
 
-      return `${quoteElement}${hitokoto}`;
+      return `${quoteElement}${content}${originText}`;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
