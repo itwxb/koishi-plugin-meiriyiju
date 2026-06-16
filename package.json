@@ -1,7 +1,7 @@
 {
   "name": "koishi-plugin-meiriyiju",
-  "description": "每日一句，一句话的力量。梦想之都出品",
-  "version": "1.0.7",
+  "description": "每日一句 / 每日古诗，触发关键词即可随机获取一句话或一首古诗。梦想之都出品",
+  "version": "1.1.0",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
   "files": [
@@ -27,6 +27,8 @@
   "keywords": [
     "每日一句",
     "一言",
+    "每日古诗",
+    "古诗词",
     "梦想之都",
     "plugin"
   ],
